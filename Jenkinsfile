@@ -19,14 +19,8 @@ node {
          * gulp task will run the scan and save results to the file insights_scan.xml
          */
         sh 'gulp'
+        junit allowEmptyResults: true, keepLongStdio: true, testResults: 'insights_scan.xml'
     }
 
-    /**
-     *  Post a report fo the the scanning results to view in Jenkins UI
-     */
-    post {
-        always {
-             junit "./insights_scan.xml"
-        }
-    }
+   
 }

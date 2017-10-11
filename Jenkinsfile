@@ -20,7 +20,7 @@ node {
         /*
          * gulp task will run the scan and save results to the file insights_scan.xml
          */
-        sh 'gulp  insights-xunit'
+        sh 'gulp'
     }
 
     /**

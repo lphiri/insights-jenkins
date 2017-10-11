@@ -1,5 +1,5 @@
 # Specify base image here
-FROM registry.access.redhat.com/rhel
+FROM centos:6
 
 # install node
 RUN yum install -y \

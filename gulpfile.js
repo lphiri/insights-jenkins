@@ -14,7 +14,7 @@ var wrap = require('linewrap')(4, 120);
 gulp.task('insights:xunit', function () {
     var imageID = execSync('docker images insights/jenkins-example --quiet').toString();
     // run insights scan and collect output
-    const insightsCommand = 'insights-client --analyze-image-id=' + imageID;
+    const insightsCommand = 'sudo insights-client --analyze-image-id=' + imageID;
     const results = JSON.parse(execSync(insightsCommand).toString());
 
     // If you want to ignore a particular test, add its id to .insightsignore

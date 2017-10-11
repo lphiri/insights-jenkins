@@ -3,24 +3,30 @@ node {
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
-
         checkout scm
+        /* We need npm install to run our tests*/
+        sh 'npm install'
     }
 
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-
-        app = docker.build("lphiri/imageinspector")
+        app = docker.build("insights/jenkins-example")
     }
 
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
+    stage('Run Insights scan on image') {
+        /*
+         * gulp task will run the scan and save results to the file insights_scan.xml
+         */
+        sh 'gulp  insights-xunit'
+    }
 
-        app.inside {
-            sh 'echo "Tests passed"'
+    /**
+     *  Post a report fo the the scanning results to view in Jenkins UI
+     */
+    post {
+        always {
+             junit "./insights_scan.xml"
         }
     }
-
 }
